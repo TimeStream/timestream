@@ -54,6 +54,17 @@ module Timestream
         parsed_config = JSON.parse(File.read(file_path))
         return parsed_config['password']
       end
+
+      def check_credentials
+        file_path = File.expand_path("~/.tsconfig")
+        if File.exists?(file_path)
+          return true
+        else
+          say("Please log in first.", :red)
+          login
+        end
+      end
+
     end
 
     desc "login", "Login to your TimeStream account"
@@ -79,6 +90,8 @@ module Timestream
     desc "new \"Some new status\"", "Add a new task"
     def new(task)
 
+      check_credentials
+
       if task == nil
         say("Task can not be empty. Please supply a status to post.", :red)
       else
@@ -98,6 +111,8 @@ module Timestream
     method_option :format, :type => :string, :aliases => '-f', :default => 'task', :desc => 'Specify what you want: time, task, task-time, time-task. If specified, only returns txt.'
     method_option :inline, :type => :boolean, :aliases => '-i', :default => false, :desc => 'Specify if you want the output inline, i.e. with NO newline after the output. Useful when scripting.'
     def current
+      check_credentials
+
       output_format = options[:output]
       view_format = options[:format]
       inline = options[:inline]
@@ -123,6 +138,8 @@ module Timestream
     desc "today", "Get a list of all of today's tasks"
     method_option :output, :type => :string, :aliases => '-o', :default => 'txt', :desc => 'Specify an output format: csv, json, pdf, rss, txt or xml'
     def today
+      check_credentials
+
       output_format = options[:output]
       response = HTTParty.get("https://timestreamapp.com/#{get_username}.#{output_format}", :query => {:password => get_password})
       say(response.body, nil)
@@ -131,6 +148,8 @@ module Timestream
     desc "search \"search terms\"", "Search tasks"
     method_option :output, :type => :string, :aliases => '-o', :default => 'txt', :desc => 'Specify an output format: csv, json, pdf, rss, txt or xml'
     def search(search_terms)
+      check_credentials
+
       original_search_terms = search_terms
       search_terms = search_terms.split
       search_terms = search_terms.join("+")
@@ -148,6 +167,7 @@ module Timestream
     desc "date \"YYYY-MM-DD\"", "Show tasks for a specific date, uses typical formats, e.g.: YYYY-MM-DD, \"last monday\", MM/DD/YY"
     method_option :output, :type => :string, :aliases => '-o', :default => 'txt', :desc => 'Specify an output format: csv, json, pdf, rss, txt or xml'
     def date(requested_date)
+      check_credentials
 
       original_requested_date = requested_date
       requested_date = Date.parse(requested_date)
@@ -169,6 +189,8 @@ module Timestream
     method_option :origin, :type => :string, :aliases => '-o', :default => 'origin', :desc => 'Specify the origin'
     method_option :master, :type => :string, :aliases => '-m', :default => 'master', :desc => 'Specify the master'
     def commit
+      check_credentials
+
       view_format = options[:format]
       push = options[:push]
       origin = options[:origin]
