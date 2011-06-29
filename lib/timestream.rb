@@ -131,12 +131,18 @@ module Timestream
     desc "search \"search terms\"", "Search tasks"
     method_option :output, :type => :string, :aliases => '-o', :default => 'txt', :desc => 'Specify an output format: csv, json, pdf, rss, txt or xml'
     def search(search_terms)
+      original_search_terms = search_terms
       search_terms = search_terms.split
       search_terms = search_terms.join("+")
 
       output_format = options[:output]
       response = HTTParty.get("https://timestreamapp.com/#{get_username}/search/#{search_terms}.#{output_format}", :query => {:password => get_password})
-      say(response.body, nil)
+
+      if response.body ==""
+        say("Sorry, no search results found for: #{original_search_terms}", :red)
+      else
+        say(response.body, nil)
+      end
     end
 
     desc "date \"YYYY-MM-DD\"", "Show tasks for a specific date, uses typical formats, e.g.: YYYY-MM-DD, \"last monday\", MM/DD/YY"
