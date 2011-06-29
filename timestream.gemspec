@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "timestream/version"
 
 Gem::Specification.new do |s|
-  s.name        = "timestream"
+  s.name        = "timestreamapp"
   s.version     = Timestream::VERSION
   s.authors     = ["Ahmad Varoqua"]
   s.email       = ["ahmadvaroqua@timestreamapp.com"]
