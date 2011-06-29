@@ -14,6 +14,11 @@ module Timestream
     map "-C" => :current
     map "-c" => :current
     map "current" => :current
+    map "task" => :current
+    map "status" => :current
+
+    map "time-task" => :time_task
+    map "task-task" => :task_time
 
     map "-L" => :login
     map "-l" => :login
@@ -127,6 +132,54 @@ module Timestream
         else
           response = HTTParty.get("https://timestreamapp.com/#{get_username}/current.#{output_format}", :query => {:password => get_password})
       end
+
+      if inline == true
+        say(response.body, nil, false)
+      else
+        say(response.body, nil)
+      end
+    end
+
+    desc "time", "Get the duration of your current task"
+    method_option :inline, :type => :boolean, :aliases => '-i', :default => false, :desc => 'Specify if you want the output inline, i.e. with NO newline after the output. Useful when scripting.'
+    def time
+      check_credentials
+
+      inline = options[:inline]
+
+      response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time.txt", :query => {:password => get_password})
+
+      if inline == true
+        say(response.body, nil, false)
+      else
+        say(response.body, nil)
+      end
+    end
+
+    desc "time-task", "Get the time and task together"
+    method_option :inline, :type => :boolean, :aliases => '-i', :default => false, :desc => 'Specify if you want the output inline, i.e. with NO newline after the output. Useful when scripting.'
+    def time_task
+      check_credentials
+
+      inline = options[:inline]
+
+      response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time-task.txt", :query => {:password => get_password})
+
+      if inline == true
+        say(response.body, nil, false)
+      else
+        say(response.body, nil)
+      end
+    end
+
+    desc "task-time", "Get the task and time together"
+    method_option :inline, :type => :boolean, :aliases => '-i', :default => false, :desc => 'Specify if you want the output inline, i.e. with NO newline after the output. Useful when scripting.'
+    def task_time
+      check_credentials
+
+      inline = options[:inline]
+
+      response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/task-time.txt", :query => {:password => get_password})
 
       if inline == true
         say(response.body, nil, false)
