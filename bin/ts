@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+# require 'timestream/cli'
+require 'timestream'
+Timestream::CLI.start
