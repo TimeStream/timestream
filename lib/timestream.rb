@@ -149,12 +149,18 @@ module Timestream
     method_option :output, :type => :string, :aliases => '-o', :default => 'txt', :desc => 'Specify an output format: csv, json, pdf, rss, txt or xml'
     def date(requested_date)
 
+      original_requested_date = requested_date
       requested_date = Date.parse(requested_date)
       requested_date = requested_date.strftime("%F")
 
       output_format = options[:output]
       response = HTTParty.get("https://timestreamapp.com/#{get_username}/#{requested_date}.#{output_format}", :query => {:password => get_password})
-      say(response.body, nil)
+
+      if response.body ==""
+        say("Sorry, no entries found for: #{original_requested_date}", :red)
+      else
+        say(response.body, nil)
+      end
     end
 
     desc "commit", "Commit and push up your Git changes to the remote master with your current TimeStream status as the commit message"
