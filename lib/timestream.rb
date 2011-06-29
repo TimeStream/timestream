@@ -95,7 +95,7 @@ module Timestream
       if task == nil
         say("Task can not be empty. Please supply a status to post.", :red)
       else
-        response = HTTParty.post("https://timestreamapp.com/#{get_username}.txt", :query => {:password => get_password, :source => 'bash', :task => task})
+        response = HTTParty.post("https://timestreamapp.com/#{get_username}.txt", :query => {:password => get_password, :source => 'timestream_gem', :task => task})
 
         if response.body == 'Success: New task successfully added.'
           say(response.body, :green)
