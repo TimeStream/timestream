@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{This is a command line interface to the TimeStream web application.}
   s.description = %q{This is a command line interface to the TimeStream web application.}
 
-  s.rubyforge_project = "timestream"
+  s.rubyforge_project = "timestreamapp"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
