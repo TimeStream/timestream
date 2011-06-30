@@ -38,3 +38,7 @@ Will output:
       ts time                   # Get the duration of your current task
       ts time-task              # Get the time and task together
       ts today                  # Get a list of all of today's tasks
+
+Many of the commands have optional arguments (command line switches). For e.g., to learn more about the "ts current" command, enter the following:
+
+    ts help current
