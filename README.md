@@ -118,14 +118,12 @@ Show entries for a specific date:
 
 Will output something like:
 
-    01:19:03  IEDCONSULT > Phone > Meeting about 3.x items
+    01:19:03  SOMECLIENT > Phone > Meeting about 3.x items
     00:11:05  ROCKERISTA > CM > Creating header image for Concert Post
     00:00:36  VGTRACKER > Dev > Defining responders > PDF > Trying to get webfonts to work
     00:00:24  VGTRACKER > Dev > Making root point to home
     00:30:50  VGTRACKER > IT > Install production SSL certs
     00:17:40  VGTRACKER > IT > Rerouting all traffic through https
-    23:11:07  br
-    00:00:10  nginx redirect all traffic through https
 
 Automatically add changed files, commit them with your current TimeStream status as the commit message and push it up to the remote master with Git:
 
