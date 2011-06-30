@@ -83,12 +83,6 @@ module Timestream
 
     end
 
-    desc "login2", "Login2"
-    def login2
-      password = ask_password "Password:"
-      puts password
-    end
-
     desc "login", "Login to your TimeStream account"
     def login
       # Ask for credentials
@@ -103,12 +97,18 @@ module Timestream
         creds = {:username => username, :password => password}
         # create_file "~/.tsconfig", JSON.pretty_generate(creds), :force => true
         create_file "~/.tsconfig", JSON.pretty_generate(creds), {:force => true, :verbose => false}
+        say("Storing creds under ~/.tsconfig")
         say(response.body, :green)
       else
         say("Invalid credentials, please try again.", :red)
         login
       end
+    end
 
+    desc "logout", "Logout of your TimeStream account"
+    def logout
+      remove_file "~/.tsconfig", {:verbose => false}
+      say("You are now logged out.", :red)
     end
 
     desc "new \"Some new status\"", "Add a new task"
