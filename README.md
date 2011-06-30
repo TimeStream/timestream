@@ -62,6 +62,10 @@ Show the duration of your current task:
 
     ts time
 
+Will output something like:
+
+    04:41:45
+
 Show your current time and task together:
 
     ts time-task
@@ -85,15 +89,43 @@ Will output something like:
 
 Search for entries:
 
-    ts search "some search terms"
+    ts search "awesome"
+
+Will output:
+
+    00:00:49  This is my awesome task  2011-06-07 10:10:46  2011-06-07 10:11:35
+    00:04:09  This is some other awesome task 2011-04-07 17:03:42  2011-04-07 17:07:51
 
 Show your current task in JSON format:
 
     ts current -o=json
 
+Will output:
+
+    {
+      "task":"This is my awesome task",
+      "duration":"04:44:35",
+      "seconds":"17075",
+      "created_at":"2011-06-30 11:53:26",
+      "timezone":"America/Los_Angeles",
+      "source":"quicksilver",
+      "ip":"67.188.42.153"
+    }
+
 Show entries for a specific date:
 
     ts date "2011-05-11"
+
+Will output something like:
+
+    01:19:03  IEDCONSULT > Phone > Meeting about 3.x items
+    00:11:05  ROCKERISTA > CM > Creating header image for Concert Post
+    00:00:36  VGTRACKER > Dev > Defining responders > PDF > Trying to get webfonts to work
+    00:00:24  VGTRACKER > Dev > Making root point to home
+    00:30:50  VGTRACKER > IT > Install production SSL certs
+    00:17:40  VGTRACKER > IT > Rerouting all traffic through https
+    23:11:07  br
+    00:00:10  nginx redirect all traffic through https
 
 Automatically add changed files, commit them with your current TimeStream status as the commit message and push it up to the remote master with Git:
 
