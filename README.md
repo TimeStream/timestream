@@ -42,3 +42,59 @@ Will output:
 Many of the commands have optional arguments (command line switches). For e.g., to learn more about the "ts current" command, enter the following:
 
     ts help current
+
+This will output:
+
+    Usage:
+      ts current
+
+    Options:
+      -f, [--format=FORMAT]  # Specify what you want: time, task, task-time, time-task. If specified, only returns txt.
+                             # Default: task
+      -o, [--output=OUTPUT]  # Specify an output format: csv, json, pdf, rss, txt or xml
+                             # Default: txt
+      -i, [--inline]         # Specify if you want the output inline, i.e. with NO newline after the output. Useful when scripting.
+
+Examples
+--------
+
+Show the duration of your current task:
+
+    ts time
+
+Show your current time and task together:
+
+    ts time-task
+
+Will output:
+
+    [04:34:22] This is my awesome task
+
+Add a new task:
+
+    ts new "This is some other awesome task"
+
+Show all of today's tasks:
+
+    ts today
+
+Will output something like:
+
+    00:02:00  This is my awesome task
+    00:15:54  This is some other awesome task
+
+Search for entries:
+
+    ts search "some search terms"
+
+Show your current task in JSON format:
+
+    ts current -o=json
+
+Show entries for a specific date:
+
+    ts date "2011-05-11"
+
+Automatically add changed files, commit them with your current TimeStream status as the commit message and push it up to the remote master with Git:
+
+    ts commit
