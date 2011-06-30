@@ -70,20 +70,39 @@ module Timestream
         end
       end
 
+      def ask_password(statement, color=nil)
+        say("#{statement} ", color)
+        # Hide standard input
+        system "stty -echo"
+        password = $stdin.gets.strip
+        # Restore standard input
+        system "stty echo"
+        system "echo "
+        return password
+      end
+
+    end
+
+    desc "login2", "Login2"
+    def login2
+      password = ask_password "Password:"
+      puts password
     end
 
     desc "login", "Login to your TimeStream account"
     def login
       # Ask for credentials
       username = ask "Username:"
-      password = ask "Password:"
+      # password = ask "Password:"
+      password = ask_password "Password:"
 
       # Hit the login API and capture the response
       response = HTTParty.post("https://timestreamapp.com/login.txt", :query => {:username => username, :password => password})
 
       if response.body == 'Success: Valid credentials'
         creds = {:username => username, :password => password}
-        create_file "~/.tsconfig", JSON.pretty_generate(creds), :force => true
+        # create_file "~/.tsconfig", JSON.pretty_generate(creds), :force => true
+        create_file "~/.tsconfig", JSON.pretty_generate(creds), {:force => true, :verbose => false}
         say(response.body, :green)
       else
         say("Invalid credentials, please try again.", :red)
