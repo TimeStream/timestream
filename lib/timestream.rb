@@ -3,6 +3,7 @@ require 'rubygems'
 require 'thor'
 require 'json'
 require 'httparty'
+require 'timestream/version'
 
 module Timestream
 
@@ -43,6 +44,13 @@ module Timestream
     map "-CM" => :commit
     map "-cm" => :commit
     map "commit" => :commit
+
+    map "-v" => :version
+    map "-V" => :version
+    map "--version" => :version
+
+    map "-w" => :web
+    map "-W" => :web
 
     # Define some private functions
     no_tasks do
@@ -292,6 +300,12 @@ module Timestream
     desc "web", "Open TimeStream in your web browser"
     def web
       system("open https://timestreamapp.com/#{get_username}")
+    end
+
+    desc "version", "Show the version of the TimeStream gem"
+    def version
+      say(Timestream::VERSION)
+      # VERSION
     end
 
   end
