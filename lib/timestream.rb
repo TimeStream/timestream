@@ -52,6 +52,8 @@ module Timestream
     map "-w" => :web
     map "-W" => :web
 
+    map "intro" => :info
+
     # Define some private functions
     no_tasks do
       # Used to check the credentials
@@ -306,6 +308,16 @@ module Timestream
     def version
       say(Timestream::VERSION)
       # VERSION
+    end
+
+    desc "info", "Learn about TimeStream"
+    def info
+      say("Welcome to TimeStream! TimeStream is a minimalist, web-based time-tracking system.")
+      say("You can learn more at: https://timestreamapp.com")
+
+      if yes?("Would you like to go TimeStreamApp.com now?", :green)
+        system("open https://timestreamapp.com")
+      end
     end
 
   end
