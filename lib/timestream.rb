@@ -289,6 +289,11 @@ module Timestream
       end
     end
 
+    desc "web", "Open TimeStream in your web browser"
+    def web
+      system("open https://timestreamapp.com/#{get_username}")
+    end
+
   end
 
 end
