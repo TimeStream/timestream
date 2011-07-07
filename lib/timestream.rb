@@ -17,6 +17,7 @@ module Timestream
     map "current" => :current
     map "task" => :current
     map "status" => :current
+    map "c" => :current
 
     map "time-task" => :time_task
     map "task-task" => :task_time
@@ -24,35 +25,45 @@ module Timestream
     map "-L" => :login
     map "-l" => :login
     map "login" => :login
+    map "l" => :login
 
     map "-N" => :new
     map "-n" => :new
     map "new" => :new
+    map "n" => :new
 
     map "-T" => :today
     map "-t" => :today
     map "today" => :today
+    map "t" => :today
 
     map "-S" => :search
     map "-s" => :search
     map "search" => :search
+    map "s" => :search
 
     map "-D" => :date
     map "-d" => :date
     map "date" => :date
+    map "d" => :date
 
     map "-CM" => :commit
     map "-cm" => :commit
     map "commit" => :commit
+    map "cm" => :commit
+    map "gcp" => :commit
 
     map "-v" => :version
     map "-V" => :version
     map "--version" => :version
+    map "v" => :version
 
     map "-w" => :web
     map "-W" => :web
+    map "w" => :web
 
     map "intro" => :info
+    map "i" => :info
 
     # Define some private functions
     no_tasks do
