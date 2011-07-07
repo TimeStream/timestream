@@ -295,7 +295,8 @@ module Timestream
       system("git commit -m \"#{commit_message}\"")
 
       if push == true
-        system("git push #{origin} #{master}")
+        # system("git push #{origin} #{master}")
+        system("git push")
       end
     end
 
