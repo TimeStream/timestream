@@ -112,7 +112,7 @@ module Timestream
       password = ask_password "Password:"
 
       # Hit the login API and capture the response
-      response = HTTParty.post("https://timestreamapp.com/login.txt", :query => {:username => username, :password => password})
+      response = HTTParty.post("https://timestreamapp.com/login.txt", :query => {:username => username, :password => password}, :verify => false)
 
       if response.body == 'Success: Valid credentials'
         creds = {:username => username, :password => password}
@@ -140,7 +140,7 @@ module Timestream
       if task == nil
         say("Task can not be empty. Please supply a status to post.", :red)
       else
-        response = HTTParty.post("https://timestreamapp.com/#{get_username}.txt", :query => {:password => get_password, :source => 'timestream_gem', :task => task})
+        response = HTTParty.post("https://timestreamapp.com/#{get_username}.txt", :query => {:password => get_password, :source => 'timestream_gem', :task => task}, :verify => false)
 
         if response.body == 'Success: New task successfully added.'
           say(response.body, :green)
@@ -164,13 +164,13 @@ module Timestream
 
       case view_format
         when 'time'
-          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time.txt", :query => {:password => get_password})
+          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time.txt", :query => {:password => get_password}, :verify => false)
         when 'task-time'
-          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/task-time.txt", :query => {:password => get_password})
+          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/task-time.txt", :query => {:password => get_password}, :verify => false)
         when 'time-task'
-          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time-task.txt", :query => {:password => get_password})
+          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time-task.txt", :query => {:password => get_password}, :verify => false)
         else
-          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current.#{output_format}", :query => {:password => get_password})
+          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current.#{output_format}", :query => {:password => get_password}, :verify => false)
       end
 
       if inline == true
@@ -187,7 +187,7 @@ module Timestream
 
       inline = options[:inline]
 
-      response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time.txt", :query => {:password => get_password})
+      response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time.txt", :query => {:password => get_password}, :verify => false)
 
       if inline == true
         say(response.body, nil, false)
@@ -203,7 +203,7 @@ module Timestream
 
       inline = options[:inline]
 
-      response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time-task.txt", :query => {:password => get_password})
+      response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time-task.txt", :query => {:password => get_password}, :verify => false)
 
       if inline == true
         say(response.body, nil, false)
@@ -219,7 +219,7 @@ module Timestream
 
       inline = options[:inline]
 
-      response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/task-time.txt", :query => {:password => get_password})
+      response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/task-time.txt", :query => {:password => get_password}, :verify => false)
 
       if inline == true
         say(response.body, nil, false)
@@ -234,7 +234,7 @@ module Timestream
       check_credentials
 
       output_format = options[:output]
-      response = HTTParty.get("https://timestreamapp.com/#{get_username}.#{output_format}", :query => {:password => get_password})
+      response = HTTParty.get("https://timestreamapp.com/#{get_username}.#{output_format}", :query => {:password => get_password}, :verify => false)
       say(response.body, nil)
     end
 
@@ -248,7 +248,7 @@ module Timestream
       search_terms = search_terms.join("+")
 
       output_format = options[:output]
-      response = HTTParty.get("https://timestreamapp.com/#{get_username}/search/#{search_terms}.#{output_format}", :query => {:password => get_password})
+      response = HTTParty.get("https://timestreamapp.com/#{get_username}/search/#{search_terms}.#{output_format}", :query => {:password => get_password}, :verify => false)
 
       if response.body ==""
         say("Sorry, no search results found for: #{original_search_terms}", :red)
@@ -267,7 +267,7 @@ module Timestream
       requested_date = requested_date.strftime("%F")
 
       output_format = options[:output]
-      response = HTTParty.get("https://timestreamapp.com/#{get_username}/#{requested_date}.#{output_format}", :query => {:password => get_password})
+      response = HTTParty.get("https://timestreamapp.com/#{get_username}/#{requested_date}.#{output_format}", :query => {:password => get_password}, :verify => false)
 
       if response.body ==""
         say("Sorry, no entries found for: #{original_requested_date}", :red)
@@ -291,13 +291,13 @@ module Timestream
 
       case view_format
         when 'time'
-          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time.txt", :query => {:password => get_password})
+          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time.txt", :query => {:password => get_password}, :verify => false)
         when 'task-time'
-          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/task-time.txt", :query => {:password => get_password})
+          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/task-time.txt", :query => {:password => get_password}, :verify => false)
         when 'time-task'
-          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time-task.txt", :query => {:password => get_password})
+          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current/time-task.txt", :query => {:password => get_password}, :verify => false)
         else
-          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current.txt", :query => {:password => get_password})
+          response = HTTParty.get("https://timestreamapp.com/#{get_username}/current.txt", :query => {:password => get_password}, :verify => false)
       end
 
       commit_message = response.body
